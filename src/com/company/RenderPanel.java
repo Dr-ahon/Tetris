@@ -73,6 +73,8 @@ public class RenderPanel extends JPanel implements ActionListener {
         STARTGAME.addActionListener(this);
         pauseGame.addActionListener(this);
 
+        pauseGame.setFocusPainted(false);
+
         this.add(scoreLabel);
         this.add(levelLabel);
         this.add(pausedLabel);
@@ -130,14 +132,12 @@ public class RenderPanel extends JPanel implements ActionListener {
                 .forEach(a -> drawSquare(g, a, Color.gray, 1));
         g.setColor(Color.red.darker());
         game.enemies.forEach(a -> {
-            if (a instanceof Metheor) {
+            if (a instanceof Meteore) {
                 g.fillOval(a.getX(), a.getY(), 60, 60);
                 g.setColor(Color.lightGray);
                 g.fillOval(a.getX() + 5, a.getY() + 5, 50, 50);
                 g.setColor(Color.red.darker());
                 g.fillOval(a.getX() + 10, a.getY() + 10, 40, 40);
-
-
             }
         });
 

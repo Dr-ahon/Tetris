@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 enum Theme {
-    WALL, METHEOR, ANTIGRAVITY
+    WALL, METEORE, ANTIGRAVITY
 }
 
 
@@ -33,7 +33,7 @@ public class Game implements ActionListener, KeyListener {
     boolean paused;
     boolean wallBool;
     boolean anitigBool;
-    boolean metheorBool;
+    boolean meteoreBool;
     private int score;
     private int currentTheme;
     private int gravityIndex;
@@ -131,6 +131,7 @@ public class Game implements ActionListener, KeyListener {
         currGravIndex++;
         currThemeIndex++;
         renderPanel.scoreLabel.setText("SCORE: " + score);
+        renderPanel.levelLabel.setText("level: " + level);
         deleteEnemy();
         if (collision()) {
             gameOver();
@@ -142,11 +143,11 @@ public class Game implements ActionListener, KeyListener {
         } else if (currThemeIndex == themeIndex) {
             currThemeIndex = 0;
             wallBool = false;
-            metheorBool = false;
+            meteoreBool = false;
             anitigBool = false;
             switch (Theme.values()[currentTheme]) {
                 case WALL -> wallBool = true;
-                case METHEOR -> metheorBool = true;
+                case METEORE -> meteoreBool = true;
                 case ANTIGRAVITY -> anitigBool = true;
             }
         }
@@ -158,7 +159,7 @@ public class Game implements ActionListener, KeyListener {
             currGravIndex = 0;
             enemies.forEach(a -> a.move(level));
             enemies.stream()
-                    .filter(a -> a instanceof Metheor)
+                    .filter(a -> a instanceof Meteore)
                     .forEach(this::eraseFloor);
 
             if (canGoFreely(0, 30)) {
@@ -178,11 +179,8 @@ public class Game implements ActionListener, KeyListener {
 
                 score += sc * level;
                 score++;
-                System.out.println(requiredScore(level));
-                System.out.println(score);
                 if (requiredScore(level) <= score) {
                     level++;
-                    renderPanel.levelLabel.setText("level: " + level);
 
                     if (gravityIndex > 1) {
                         gravityIndex--;
@@ -226,7 +224,7 @@ public class Game implements ActionListener, KeyListener {
             }
         }
 
-        if (i == KeyEvent.VK_SPACE) {
+        if (i == KeyEvent.VK_SPACE || i == KeyEvent.VK_P) {
             ArrayList<Point> l = activeBlock.rotate();
             ArrayList<Point> k = l.stream()
                     .map(p -> new Point(p.x + activeBlock.position.x, p.y + activeBlock.position.y))
@@ -259,11 +257,11 @@ public class Game implements ActionListener, KeyListener {
             y = (rand.nextInt(3) - 1) * 30;
         }
 
-        if (metheorBool) {
+        if (meteoreBool) {
             switch (sw) {
-                case 1, 5 -> enemies.add(new Metheor(new Point(20, r1), x, y));
-                case 2, 6 -> enemies.add(new Metheor(new Point(380, r1), x, y));
-                case 4, 7 -> enemies.add(new Metheor(new Point(r2, 740), x, y));
+                case 1, 5 -> enemies.add(new Meteore(new Point(20, r1), x, y));
+                case 2, 6 -> enemies.add(new Meteore(new Point(380, r1), x, y));
+                case 4, 7 -> enemies.add(new Meteore(new Point(r2, 740), x, y));
                 default -> {
                 }
             }
@@ -298,7 +296,7 @@ public class Game implements ActionListener, KeyListener {
         ArrayList<Point> actBlcl = activeBlock.getShape();
 
         long intersectCount = enemies.stream()
-                .filter(a -> a instanceof Metheor)
+                .filter(a -> a instanceof Meteore)
                 .map(Enemy::getShape)
                 .flatMap(Collection::stream)
                 .distinct()
@@ -351,7 +349,7 @@ public class Game implements ActionListener, KeyListener {
         paused = true;
         gameOver = true;
         wallBool = false;
-        metheorBool = false;
+        meteoreBool = false;
         anitigBool = false;
         tmr.stop();
         renderPanel.gameOverlabel.setVisible(true);
@@ -361,6 +359,9 @@ public class Game implements ActionListener, KeyListener {
 
     private void prepareGame() {
 
+        wallBool = false;
+        anitigBool = false;
+        meteoreBool = false;
         wall = new ArrayList<>();
         for (int i = 680; i >= 400; i -= 60) {
             for (int j = 320; j >= 80; j -= 60) {

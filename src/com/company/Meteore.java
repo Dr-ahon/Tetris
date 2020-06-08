@@ -3,12 +3,12 @@ package com.company;
 import java.awt.*;
 import java.util.ArrayList;
 
-class Metheor implements Enemy {
+class Meteore implements Enemy {
     Point position;
     int velX;
     int velY;
 
-    public Metheor(Point pos, int x, int y) {
+    public Meteore(Point pos, int x, int y) {
         position = pos;
         velX = x;
         velY = y;
