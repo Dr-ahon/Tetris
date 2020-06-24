@@ -15,3 +15,11 @@ Každá nová hra se začíná stisknutím velkého červeného tlačítka a poz
 spustit jak za průběhu hry, tak při jejím pozastavení. Padající blok se ovládá pomocí šipek, nebo kláves WASD, otáčí se pomocí mezerníku 
 a pozastavit hru jde vedle malého červeného tlačítka i stisknutím klávesy P.
 
+### Contribution - font
+
+FREEWARE USE (NOTES)
+-=================-
+Also you may: 
+ * Use the font in freeware software (credit needed);
+ * Use the font for your education process.
+
